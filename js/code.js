@@ -34,13 +34,17 @@ function run(playerSelection, computerSelection){
 
     console.log(player + " "+ computer)
 
-    const player_rock = new Boolean(player === "ROCK")
-    const player_paper = new Boolean(player === "PAPER")
-    const player_scissors = new Boolean(player === "SCISSORS")
+    
 
-    const computer_rock = new Boolean(computer === "ROCK")
-    const computer_paper = new Boolean(computer === "PAPER")
-    const computer_scissors = new Boolean(computer === "SCISSORS")
+    const player_rock = player === "ROCK"
+    const player_paper = player === "PAPER"
+    const player_scissors = player === "SCISSORS"
+
+    const computer_rock = computer === "ROCK"
+    const computer_paper = computer === "PAPER"
+    const computer_scissors = computer === "SCISSORS"
+
+    //Console outputs for testing
 
     console.log(player_rock)
     console.log(player_paper)
@@ -53,14 +57,15 @@ function run(playerSelection, computerSelection){
     console.log("---------_")
 
     console.log(player_rock && computer_paper)
+    console.log(player_rock && computer_scissors)
 
 
 
     if(player === computer) {
         console.log("DRAW!!")
     }
-    if(player_rock && computer_paper) {
-        console.log("YOU LOST! ::: PAPER BEATS ROCK!1")
+    else if(player_rock && computer_paper) {
+        console.log("YOU LOST! ::: PAPER BEATS ROCK!")
     }
     else if(player_rock && computer_scissors) {
         console.log("YOU WON!! ::: ROCK BEATS SCISSORS!")
@@ -76,8 +81,10 @@ function run(playerSelection, computerSelection){
     }
     else if(player_scissors && computer_paper) {
         console.log("YOU WON!! ::: SCISSORS BEAT PAPER!")
+    } else {
+        console.log("INVALID INPUT ::: USE PAPER, SCISSORS OR ROCK")
     }
 
 }
 
-run("Rock", getComputerChoice())
+run("PaPr", getComputerChoice())

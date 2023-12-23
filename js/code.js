@@ -63,28 +63,73 @@ function run(playerSelection, computerSelection){
 
     if(player === computer) {
         console.log("DRAW!!")
+        return 0
     }
     else if(player_rock && computer_paper) {
         console.log("YOU LOST! ::: PAPER BEATS ROCK!")
+        return -1
     }
     else if(player_rock && computer_scissors) {
         console.log("YOU WON!! ::: ROCK BEATS SCISSORS!")
+        return 1
     }
     else if(player_paper && computer_scissors) {
         console.log("YOU LOST! ::: SCISSORS BEAT PAPER")
+        return -1
     }
     else if(player_paper && computer_rock) {
         console.log("YOU WON!! ::: PAPER BEATS ROCK!")
+        return 1
     }
     else if(player_scissors && computer_rock) {
         console.log("YOU LOST! ::: ROCK BEAT SCISSORS")
+        return -1
     }
     else if(player_scissors && computer_paper) {
         console.log("YOU WON!! ::: SCISSORS BEAT PAPER!")
+        return 1
     } else {
         console.log("INVALID INPUT ::: USE PAPER, SCISSORS OR ROCK")
+        return null
     }
 
 }
 
-run("PaPr", getComputerChoice())
+
+
+function playRoundRecusiv() {
+
+    var choice = prompt("Enter choice for next round!")
+        
+    var gameResult = run(choice, getComputerChoice())
+    if(gameResult === null) {
+        return  playRoundRecusiv()
+    }    
+    return gameResult
+        
+}    
+
+function game() {
+
+    var counter = 0;
+
+    for(var i = 0; i < 5; i++) {
+        console.log("TEST")
+        counter += playRoundRecusiv()
+    }
+
+    if(counter === 0){
+        console.log("END OF GAME! ::: DRAAAW!!")
+    }
+    else if( counter > 0) {
+        console.log("END OF GAME! ::: YOU WON!!!")
+    }
+    else if(counter < 0){
+        console.log("END OF GAME! ::: YOU LOST LOSER!!")
+    }
+
+    
+
+}
+
+game()

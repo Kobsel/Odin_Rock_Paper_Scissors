@@ -27,6 +27,7 @@ function getComputerChoice() {
 
 
 
+
 function run(playerSelection, computerSelection){
 
     const player = playerSelection.toUpperCase()
@@ -59,77 +60,134 @@ function run(playerSelection, computerSelection){
     console.log(player_rock && computer_paper)
     console.log(player_rock && computer_scissors)
 
+    var resultText = '';
 
 
     if(player === computer) {
-        console.log("DRAW!!")
-        return 0
+
+        setScore(0);
+
+        
     }
     else if(player_rock && computer_paper) {
         console.log("YOU LOST! ::: PAPER BEATS ROCK!")
-        return -1
+        setScore(-1);
     }
     else if(player_rock && computer_scissors) {
         console.log("YOU WON!! ::: ROCK BEATS SCISSORS!")
-        return 1
+        setScore(1);
     }
     else if(player_paper && computer_scissors) {
         console.log("YOU LOST! ::: SCISSORS BEAT PAPER")
-        return -1
+        setScore(-1);
     }
     else if(player_paper && computer_rock) {
         console.log("YOU WON!! ::: PAPER BEATS ROCK!")
-        return 1
+        setScore(1);
     }
     else if(player_scissors && computer_rock) {
         console.log("YOU LOST! ::: ROCK BEAT SCISSORS")
-        return -1
+        setScore(-1);
     }
     else if(player_scissors && computer_paper) {
         console.log("YOU WON!! ::: SCISSORS BEAT PAPER!")
-        return 1
+        setScore(1);
     } else {
         console.log("INVALID INPUT ::: USE PAPER, SCISSORS OR ROCK")
-        return null
+        setScore(-1);
     }
 
 }
 
 
 
-function playRoundRecusiv() {
 
-    var choice = prompt("Enter choice for next round!")
-        
-    var gameResult = run(choice, getComputerChoice())
-    if(gameResult === null) {
-        return  playRoundRecusiv()
-    }    
-    return gameResult
-        
-}    
 
-function game() {
+function setResultText(string) {
 
-    var counter = 0;
-
-    for(var i = 0; i < 5; i++) {
-        console.log("TEST")
-        counter += playRoundRecusiv()
-    }
-
-    if(counter === 0){
-        console.log("END OF GAME! ::: DRAAAW!!")
-    }
-    else if( counter > 0) {
-        console.log("END OF GAME! ::: YOU WON!!!")
-    }
-    else if(counter < 0){
-        console.log("END OF GAME! ::: YOU LOST LOSER!!")
-    }
-
-    
+    const result = document.querySelector("#result");
+    result.textContent = string;
 
 }
 
-game()
+
+
+
+var player_score = 0;
+var computer_score = 0;
+
+const player = document.querySelector("#player");
+const computer = document.querySelector("#computer");
+
+function setScore(value){
+
+    if(value === 0){
+
+        setResultText("DRAW")
+
+    } else if(value > 0){
+        player_score++;
+        setResultText("WIN!")
+    } else if(value < 0){
+        computer_score++;
+        setResultText("LOST!")
+    }
+    computer.textContent = computer_score;
+    player.textContent = player_score;
+
+    if(player_score >= 5 || computer_score >= 5){
+
+        if(player_score >= 5) {
+
+            setResultText("----CONGRATS! YOU WON!----");
+
+        } else {
+
+            setResultText("----YOU LOST! THE COMPUTER WON!----")
+
+        }
+        player_score = 0;
+        computer_score = 0;
+
+    }
+
+}
+
+
+
+const button_rock = document.querySelector("#rock");
+const button_paper = document.querySelector("#paper");
+const button_scissors = document.querySelector("#scissors");
+
+console.log(button_paper);
+
+const container = document.querySelector(".container");
+console.log(container);
+
+container.addEventListener('click', function(event) {
+
+    console.log("RUN");
+    const target = event.target;
+
+    switch(target.id){
+
+    case('rock'):
+        
+        run('rock', getComputerChoice());
+        
+        break;
+    case('paper'):
+
+        run('paper', getComputerChoice());
+
+        break;
+    case('scissors'):
+
+        run('scissors', getComputerChoice());
+        break;
+
+    }
+
+});
+
+
